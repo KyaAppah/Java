@@ -1,0 +1,233 @@
+//the imports needed for all the predefined classes 
+import java.awt.BorderLayout; // To edit the border, background and formatting of the applet
+import java.awt.Color; 
+import java.awt.FlowLayout;
+import java.awt.event.ActionListener; //To get the buttons to be responsive and lead to the correct action
+import java.awt.event.ActionEvent;
+import javax.swing.*; //No browsers run Applets or anymore so it has been substituted for JSwing
+ 
+public class Calculator extends JFrame {
+	JFrame jframe = new JFrame("Calculator"); //Sets the Frame Title 
+
+  
+    //Define all the buttons here with their symbols and variable names and add their functions later
+    JButton zero = new JButton("          0          ");
+    JButton one = new JButton(" 1 "); //1-9, +, -, *, /, and 'Clear' all have equal spacing
+    JButton two = new JButton(" 2 ");
+    JButton three = new JButton(" 3 ");
+    JButton four = new JButton(" 4 ");
+    JButton five = new JButton(" 5 ");
+    JButton six = new JButton(" 6 ");
+    JButton seven = new JButton(" 7 ");
+    JButton eight = new JButton(" 8 ");
+    JButton nine = new JButton(" 9 ");
+    JButton plus = new JButton(" + ");
+    JButton minus = new JButton(" - ");
+    JButton times = new JButton(" * ");
+    JButton divide = new JButton(" / ");
+    JButton equals = new JButton("               =               "); // To ensure a smooth layout and achieve the calculator look . and 0 take up more space
+    JButton point = new JButton("  .  ");
+    JButton clear = new JButton(" Clear ");
+    String value;
+    char operator;
+    JTextArea area = new JTextArea(3, 4); // Size of the result label
+ 
+    public static void main(String[] args) {
+        //Setting size of the Calculator applet
+        Calculator calculator = new Calculator();
+        calculator.setSize(230, 270); //Size of the applet (length, height)
+        calculator.setTitle(" Calculator "); //Sets the JFrame's title to "Calculator"
+        calculator.setResizable(false); //Makes sure the Applet can be expanded or shrunken to avoid blank whitespace or streching of the calculator
+        calculator.setVisible(true); 
+        calculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When the "x" is pressed on the corner of the JFrame, this line ensures the program is closed
+    }
+ 
+    public Calculator() { //The layout of the calculator and positioning of buttons
+        add(new JScrollPane(area), BorderLayout.NORTH);
+        JPanel buttonpanel = new JPanel();
+        buttonpanel.setLayout(new FlowLayout());
+ //The order of which way the buttons are laid out
+        buttonpanel.add(seven); //Top row
+        buttonpanel.add(eight); //Top row
+        buttonpanel.add(nine); //Top row 
+        buttonpanel.add(divide); //Top row
+        buttonpanel.add(four); //Second row
+        buttonpanel.add(five); //Second row
+        buttonpanel.add(six); //Second row
+        buttonpanel.add(times); //Second row
+        buttonpanel.add(one); //Third row
+        buttonpanel.add(two); //Third row
+        buttonpanel.add(three); //Third row
+        buttonpanel.add(minus); //Third row
+        buttonpanel.add(zero);  //Fourth row
+        buttonpanel.add(point); //Fourth row
+        buttonpanel.add(plus); //Fourth row
+        buttonpanel.add(clear); //Bottom row
+        buttonpanel.add(equals); //Bottom row
+ //Layout of the background, buttons and coloring of the buttons and the result label
+        add(buttonpanel, BorderLayout.CENTER); 
+        area.setForeground(Color.BLACK);
+        area.setBackground(Color.WHITE);
+        area.setLineWrap(true); // lines will be wrapped if they are too long to fit
+        area.setWrapStyleWord(true); //Sets the style of wrapping used if the text area is wrapping lines
+        area.setEditable(false); //Makes text field uneditable so no stray inputs are entered
+ //Adding actions to the buttons so when they're pressed they perform an action
+        zero.addActionListener(new ActionListener() {
+            @Override //overrides the parent class
+            public void actionPerformed(ActionEvent f) {
+                area.append("0".toString());
+            }
+        });
+ 
+        one.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("1".toString());
+            }
+        });
+ 
+        two.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("2".toString());
+            }
+        });
+ 
+        three.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("3".toString());
+            }
+        });
+ 
+        four.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("4".toString());
+            }
+        });
+ 
+        five.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("5".toString());
+            }
+        });
+ 
+        six.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("6".toString());
+            }
+        });
+ 
+        seven.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("7".toString());
+            }
+        });
+ 
+        eight.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("8".toString());
+            }
+        });
+ 
+        nine.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("9".toString());
+            }
+        });
+ 
+        plus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("+".toString());
+                operator = '+';
+            }
+        });
+ 
+        minus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("-".toString());
+                operator = '-';
+            }
+        });
+ 
+        times.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("*".toString());
+                operator = '*';
+            }
+        });
+ 
+        divide.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append("/".toString());
+                operator = '/';
+            }
+        });
+
+ 
+
+ //Setting the equal button to perfom an action (any operation involving two numbers)
+        equals.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                String leftSide;
+                String rightSide;
+                try {
+                    leftSide = area.getText().substring(0, area.getText().indexOf(operator + ""));
+                    rightSide = area.getText().substring(area.getText().indexOf(operator + "") + 1, area.getText().length()); 
+                    switch (operator) {
+                        case '+':
+                            area.append(" = " + ((Double.parseDouble(leftSide) //Adds the "=" sign to show it's the total
+                                    + Double.parseDouble(rightSide)))); //REturns the value of the string as an integer
+                            break;
+                        case '-':
+                            area.append(" = " + ((Double.parseDouble(leftSide)
+                                    - Double.parseDouble(rightSide))));
+                            break;
+                        case '/':
+                            area.append(" = " + ((Double.parseDouble(leftSide)
+                                    / Double.parseDouble(rightSide))));
+                            break;
+                        case '*':
+                            area.append(" = " + ((Double.parseDouble(leftSide)
+                                    * Double.parseDouble(rightSide))));
+                            break;
+ 
+                        default:
+                            area.setText(" No Result... ");
+ 
+                            break;
+                    }
+                } catch (Exception e) {
+                }
+ 
+
+            } //might be where the error is
+        });
+		
+
+        point.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.append(".".toString());
+		}
+        });
+ 
+        clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                area.setText("0");
+            }
+        });
+    }
+}
